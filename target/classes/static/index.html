@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Invernaderos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 450px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 5px;
+            color: #555;
+        }
+        input[type="text"] {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .radio-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .radio-group label {
+            margin-right: 5px;
+        }
+        button {
+            padding: 10px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: #f9f9f9;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Agregar Invernadero</h1>
+        <form id="invernaderoForm">
+            <label for="id">ID del Invernadero:</label>
+            <input type="text" id="id" name="id" required>
+            <label for="id">Tipo de Actuador:</label>
+            <div class="radio-group">
+                <input type="radio" id="actuadorRiegoLluvia" name="actuadorRiego" value="lluvia" required>
+                <label for="actuadorRiegoLluvia">ActuadorRiegoLluvia</label>
+            </div>
+            <div class="radio-group">
+                <input type="radio" id="actuadorRiegoNormal" name="actuadorRiego" value="normal" required>
+                <label for="actuadorRiegoNormal">ActuadorRiegoNormal</label>
+            </div>
+            <button type="submit">Agregar Invernadero</button>
+        </form>
+        
+        <h1>Lista de Invernaderos</h1>
+        <ul id="invernaderos-list"></ul>
+    </div>
+
+    <script>
+        document.getElementById('invernaderoForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const id = document.getElementById('id').value;
+            const actuadorRiego = document.querySelector('input[name="actuadorRiego"]:checked').value;
+
+            fetch('/api/invernadero/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ invernaderoId: id, actuadorRiego: actuadorRiego })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Invernadero agregado:', data);
+                fetchInvernaderos();
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        function fetchInvernaderos() {
+            fetch('/api/invernaderos')
+                .then(response => response.json())
+                .then(data => {
+                    const list = document.getElementById('invernaderos-list');
+                    list.innerHTML = '';
+                    data.forEach(invernadero => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = `ID: ${invernadero.invernaderoId} - Tipo: ${invernadero.actuadorRiego}`;
+                        list.appendChild(listItem);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // Fetch invernaderos on page load
+        fetchInvernaderos();
+    </script>
+</body>
+</html>

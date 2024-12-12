@@ -1,0 +1,9 @@
+com\tlg\inv\model\ActuadorRiegoLluvia.class
+com\tlg\inv\Main.class
+com\tlg\inv\controller\InvernaderoRESTController.class
+com\tlg\inv\model\ActuadorRiegoFactory.class
+com\tlg\inv\model\ActuadorRiego.class
+com\tlg\inv\model\ActuadorRiegoNormal.class
+com\tlg\inv\controller\InvernaderoController.class
+com\tlg\inv\service\InvernaderoService.class
+com\tlg\inv\model\Invernadero.class

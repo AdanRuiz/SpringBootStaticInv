@@ -1,4 +1,4 @@
-# Invernadero Example with SrpingBoot and static html content
+# Invernadero Example with SpringBoot and static html content
 ![Demo](https://github.com/AdanRuiz/SpringBootStaticInv/blob/main/index.png?raw=true)
 
 

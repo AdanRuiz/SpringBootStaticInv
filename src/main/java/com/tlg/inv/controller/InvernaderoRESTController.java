@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.ui.Model;
 import java.util.List;
@@ -19,7 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class InvernaderoRESTController {
-    private static final Logger logger = LoggerFactory.getLogger(InvernaderoController.class);
+    private static final Logger logger = LoggerFactory.getLogger(InvernaderoRESTController.class);
 
     @Autowired
     private InvernaderoService invernaderoService;
